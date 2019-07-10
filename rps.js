@@ -1,55 +1,70 @@
-// Playerchoice
-let  playerChoice = prompt("Do you choose rock, paper or scissors?");
-if (! playerChoice) {
-    // Player types nothing
-    document.write("<p>Bro, you gotta pick rock paper or scissors</p>");
-} else {
-    // Display player choice
-    document.write("<p>Player 1:" + " " + playerChoice + "</p>");
-}
-// Computer choice
-let computerChoice = Math.floor(Math.random() * 3)
-console.log(computerChoice);
-if (computerChoice == 0) {
-    computerChoice = "rock";
-} else if(computerChoice == 1) {
-    computerChoice = "paper";
-} else {
-    computerChoice = "scissors";
+let r = document.getElementById("rock");
+let p = document.getElementById("paper");
+let s = document.getElementById("scissors");
+let res = document.getElementById("result");
+let rpsCounter = 0;
+let computerCounter = 0;
+
+console.log("locked and loaded");
+
+function rockChoice(){
+    rpsCounter = 0;
+    console.log(rpsCounter);
+    computerRps()
 }
 
-// Display computer choice
-document.write("<p>Computer:" + " " + computerChoice + "</p>");
+function paperChoice(){
+    rpsCounter = 1;
+    console.log(rpsCounter);
+    computerRps()
+}
 
-// Compare both choices
-let compare = function(choice1,choice2) {
-    if (choice1 === choice2) {
-        return "It's a tie!";
-    }
-    if (choice1 === "rock") {
-        if (choice2 === "scissors") {
-            return "You win!";
-        } else {
-            return "You lose! Try again.";
-        }
-    }
-    if (choice1 === "paper") {
-        if (choice2 === "rock") {
-            return "You win!";
-        } else {
-            return "You lose! Try again.";
-        }
-    }
-    if (choice1 === "scissors") {
-        if (choice2 === "rock") {
-            return "You lose! Try again.";
-        } else {
-            return "You win!";
-        }
-    }
-};
+function scissorChoice(){
+    rpsCounter = 2;
+    console.log(rpsCounter);
+    computerRps()
+}
 
-// Run the compare function
-let results = compare(playerChoice,computerChoice);
-// Display results
-document.write("<br><br>" + results);
+function computerRps(){
+    let x = Math.floor(Math.random() * 3);
+    console.log(x);
+    computerCounter = x;
+}
+
+
+function compare(playerChoice, computerChoice){
+
+    if(playerChoice === computerChoice){
+        res.innerHTML = "Bruh, not cool. Tie";
+        console.log("tie")
+    }
+    if (playerChoice === 0 && computerChoice === 1){
+        res.innerHTML = "Sike, paper covers rock. You lose"
+    }
+    if (playerChoice === 0 && computerChoice === 2) {
+        res.innerHTML = "Wtf, how are you so good at this. You win, rock beats scissors"
+    }
+    if (playerChoice === 1 && computerChoice === 0){
+        console.log(rpsCounter, computerCounter, "win");
+        res.innerHTML = "I guess i lose, paper covers rock"
+    }
+    if (playerChoice === 1 && computerChoice === 2){
+        res.innerHTML = "Haha, i cut you. You lose"
+    }
+    if (playerChoice === 2 && computerChoice === 0){
+        res.innerHTML = "Bro, are you even trying? Rock beats scissor, you lose"
+    }
+    if (playerChoice === 2 && computerChoice === 1){
+        res.innerHTML = "Ouch dude, scissors cut paper. You win"
+    }
+}
+
+r.addEventListener("click", () => {
+                                    rockChoice();
+                                    compare(rpsCounter, computerCounter)});
+p.addEventListener("click", () => {
+                                    paperChoice();
+                                    compare(rpsCounter, computerCounter)});
+s.addEventListener("click", () => {
+                                    scissorChoice();
+                                    compare(rpsCounter, computerCounter)});
